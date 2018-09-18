@@ -1,6 +1,6 @@
 # algorithm-studies
 
-My own work on algorithms and its implementations.
+My own work on algorithms and their implementations.
 
 CodingInterviewChX.py - These files contain my own implementations for solutions of problems in Cracking the Coding Interview, 6th Edition by Gayle Laakmann McDowell. 
 X: chapter number. I will update these files as I move forward in the book.
