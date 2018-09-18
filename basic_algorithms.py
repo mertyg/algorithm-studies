@@ -100,8 +100,60 @@ def maxsubarray(nums):
     return current_max
 
 
+#Searches for a value in an m x n matrix. This matrix has the following properti#es:
+
+#Integers in each row are sorted in ascending from left to right.
+#Integers in each column are sorted in ascending from top to bottom.
+#This is taken from a problem with the given function's name, from leetcode.
+def searchMatrix(self, matrix, target):
+    """
+    :type matrix: List[List[int]]
+    :type target: int
+    :rtype: bool
+    """
+    
+    if len(matrix)==0 or len(matrix[0])==0:
+        return False
+    row = 0
+    col = len(matrix[0])-1
+    while(1):
+        if target==matrix[row][col]:
+            return True
+        if target>matrix[row][col]:
+            if row==len(matrix)-1:
+                return False
+            row+=1
+        else:
+            if col==0:
+                return False
+            col-=1
 
 
+class TreeNode:
+    def __init__(self,val):
+        self.val = val
+        self.left = None
+        self.right = None
+
+#solution for leetcode problem "Merge Two Binary Trees"
+
+def mergeTrees(t1, t2):
+    """
+    :type t1: TreeNode
+    :type t2: TreeNode
+    :rtype: TreeNode
+    """
+    if t1 is None and t2 is None:
+        return None
+    if t1 and (t2 is None):
+        return t1
+    if t1 is None and t2:
+        return t2
+    else:
+        t1.val += t2.val
+        t1.left = mergeTrees(t1.left,t2.left)
+        t1.right = mergeTrees(t1.right,t2.right)
+    return t1
 
 
-
+            

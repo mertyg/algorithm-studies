@@ -48,3 +48,54 @@ def majorityElement(nums):
     left = majorityElement(nums[:mid])
     right = majorityElement(nums[mid:])
     return [left,right][nums.count(right)>len(nums)//2]
+
+#divide and conquer algorithm for counting inversions.
+#an inversion is defined as:
+#i and j are inverted if i < j, but ai > aj
+#also known as sort-count.
+
+def count_inversions(arr):
+    if len(arr)==1:
+        return 0,arr
+    size = len(arr)//2
+    left, leftarr = self.count_inversions(arr[:size])
+    right, rightarr = self.count_inversions(arr[size:])
+    merged,mergedarr = self.merge_count(leftarr,rightarr)
+    return left+right+merged , mergedarr
+
+def merge_count(left,right):
+    count = 0
+    lf = 0
+    rf = 0
+    final = list()
+    while lf!=len(left) and rf!=len(right):
+        if left[lf]<right[rf]:
+            final.append(left[lf])
+            lf+=1
+        elif right[rf]<left[lf]:
+            count+=(len(left)-lf)
+            final.append(right[rf])
+            rf+=1
+    while lf!=len(left):
+        final.append(left[lf])
+        lf+=1
+    while rf!=len(right):
+        final.append(right[rf])
+        rf+=1
+    return count,final
+
+
+#randomized quicksort algorithm.
+#divide and conquer approach, picking the pivot randomly.
+
+def quicksort(arr):
+    if len(arr) in list([0,1]):
+        return arr
+    pivot = randint(0,len(arr)-1)
+    smaller = quicksort([item for item in arr if item<arr[pivot]])
+    larger = quicksort([item for item in arr if item>arr[pivot]])
+    smaller.append(arr[pivot])
+    smaller.extend(larger)
+    return smaller
+
+
