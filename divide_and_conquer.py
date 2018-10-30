@@ -99,3 +99,17 @@ def quicksort(arr):
     return smaller
 
 
+#not done
+def majority_element_2(arr):
+    if len(arr)==1:
+        return [(arr[0],1),(0,0)]
+    elif len(arr)==2:
+        if (arr[0]!=arr[1]):
+            return [(arr[0],1),(arr[1],1)]
+        return [(arr[0],2),(0,0)]
+    mid = len(arr)/2
+    left = majority_element_2(arr[:mid])
+    right = majority_element_2(arr[mid:])
+    return find_help(left,right)
+
+
