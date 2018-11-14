@@ -1,4 +1,5 @@
 import sys
+from collections import defaultdict
 
 #basic version
 def coin_change(n, coins):
@@ -164,6 +165,30 @@ def longest_increasing_subseq(arr):
 
 arr =  [2, 5, 3, 7, 11, 8, 10, 13, 6]
 longest_increasing_subseq(arr)
+
+
+#Longest palindromic sequence
+def longest_palindromic_subseq(arr):
+    lookup = defaultdict(lambda : 0)
+    helper = defaultdict(lambda: [])
+    for i in range(len(arr)):
+        lookup[i,i] = 1
+        helper[i,i] = [arr[i]]
+    for i in reversed(range(len(arr))):
+        for j in range(i+1,len(arr)):
+            lookup[i,j] = (2+lookup[i+1,j-1],max(lookup[i+1,j],lookup[i,j-1]))[arr[i]!=arr[j]]
+            if arr[i]==arr[j]:
+                helper[i,j] = [arr[i]]+helper[i+1,j-1]+[arr[j]]
+            else:
+                helper[i,j] = [helper[i+1,j],helper[i,j-1]][lookup[i+1,j]<lookup[i,j-1]]
+            
+    print("Longest Palindromic Subsequence has size: ",lookup[0,len(arr)-1])
+    print("Longest Palindromic Subsequence is: ",helper[0,len(arr)-1])
+    return
+
+
+test = ["A","C","G","T","G","T","C", "A", "A", "A", "A","T","C","G"]
+longest_palindromic_subseq(test)
 
 
 
