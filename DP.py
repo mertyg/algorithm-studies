@@ -117,3 +117,54 @@ I.append(( 8, 10, 1))
 
 weighted_job_2_scheduling(jobs)
 weighted_job_2_scheduling(I)
+
+#Finds the minimum edit distance between 2 given strings
+def edit_distance(sent1, sent2):
+    d = dict()
+    for i in range(len(sent1)):
+        d[i,-1] = i+1
+    for i in range(len(sent2)):
+        d[-1,i] = i+1
+    d[-1,-1] = 0
+    for i in range(len(sent1)):
+        for j in range(len(sent2)):
+            d[i,j] = min(d[i-1,j]+1,d[i,j-1]+1,d[i-1,j-1]+int(sent1[i]!=sent2[j]))
+    return d[len(sent1)-1,len(sent2)-1]
+
+s1 = "sunday"
+s2 = "saturday"
+print("Minimum edit distance between ",s1," and ",s2," is :",edit_distance(s1,s2))
+s1 = "intention"
+s2 = "execution"
+print("Minimum edit distance between ",s1," and ",s2," is :",edit_distance(s1,s2))
+
+
+#Longest increasing subsequence n^2
+def longest_increasing_subseq(arr):
+    longest = dict()
+    subseq = dict()
+    longest[0] = 1
+    subseq[0] = [arr[0]]
+    for i in range(len(arr)):
+        maks = 0
+        best = [arr[i]]
+        for j in range(i):
+            if arr[i]>arr[j] and longest[j]>maks:
+                maks = longest[j]
+                best = subseq[j] + ([arr[i]])
+        longest[i] = maks+1
+        subseq[i] = best
+    maks = 0
+    for i in range(len(arr)):
+        if longest[i]>maks:
+            maks = longest[i]
+            best = subseq[i]
+    print("Longest Increasing Subsequence is: ",best)
+    return
+
+arr =  [2, 5, 3, 7, 11, 8, 10, 13, 6]
+longest_increasing_subseq(arr)
+
+
+
+
